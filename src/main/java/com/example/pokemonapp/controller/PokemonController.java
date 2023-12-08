@@ -1,12 +1,17 @@
-package com.example.pokemonapp.Controller;
+package com.example.pokemonapp.controller;
 
-import com.example.pokemonapp.Model.Pokemon;
+import com.example.pokemonapp.model.Pokemon;
+import com.example.pokemonapp.service.PokemonService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
 @RestController
+@RequestMapping("/pokemon")
+@CrossOrigin
 public class PokemonController {
+
+    private PokemonService pokemonService;
 
     @GetMapping
     public String home (){
@@ -19,7 +24,7 @@ public class PokemonController {
     }
 
     @PostMapping("/addPokemon")
-    public Pokemon addPokemon(String Authorization, Pokemon pokemon) {
+    public Pokemon addPokemon(String Authorization, @RequestBody Pokemon pokemon) {
         return null;
     }
 
