@@ -1,9 +1,6 @@
 package com.example.pokemonapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,14 +11,33 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table
 public class Pokemon {
 
+    public Pokemon(String name, String type, int attack, int defense, int health) {
+        this.name = name;
+        this.type = type;
+        this.attack = attack;
+        this.defense = defense;
+        this.health = health;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @SequenceGenerator(
+            name = "pokemon_sequence",
+            sequenceName = "pokemon_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "pokemon_sequence"
+    )
+    private Long id;
     private String name;
     private String type;
     private int attack;
     private int defense;
     private int health;
+
+
 }
