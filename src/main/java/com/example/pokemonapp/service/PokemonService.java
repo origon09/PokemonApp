@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PokemonService{
@@ -21,5 +22,13 @@ public class PokemonService{
 
     public List<Pokemon> getAllPokemons() {
         return pokemonRepository.findAll();
+    }
+
+    public void addPokemon(Pokemon pokemon) {
+        Optional<Pokemon> pokemonOptional = pokemonRepository.findPokemonByName(pokemon.getName());
+        if (pokemonOptional.isPresent()) {
+            throw new IllegalStateException("Pokemon already exists");
+        }
+        pokemonRepository.save(pokemon);
     }
 }

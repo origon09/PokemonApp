@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/pokemon")
 public class PokemonController {
@@ -29,8 +30,8 @@ public class PokemonController {
     }
 
     @PostMapping("/addPokemon")
-    public Pokemon addPokemon(String Authorization, @RequestBody Pokemon pokemon) {
-        return null;
+    public void addPokemon(String Authorization, @RequestBody Pokemon pokemon) {
+        pokemonService.addPokemon(pokemon);
     }
 
     @DeleteMapping("/deletePokemon")
