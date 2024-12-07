@@ -1,8 +1,10 @@
 package com.example.pokemonapp.controller;
 
 import com.example.pokemonapp.model.Pokemon;
+import com.example.pokemonapp.model.PokemonObject;
 import com.example.pokemonapp.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,12 +37,20 @@ public class PokemonController {
     }
 
     @DeleteMapping("/deletePokemon")
-    public Pokemon deletePokemon(String Authorization, int id) {
-        return null;
+    public void deletePokemon(String Authorization, long id) {
+        pokemonService.deletePokemon(id);
     }
 
     @PutMapping("/updatePokemon")
-    public Pokemon updatePokemon(String Authorization, int id){
-        return null;
+    public Pokemon updatePokemon(String Authorization, long id, @RequestBody Pokemon pokemon) {
+        pokemonService.updatePokemon(id, pokemon);
+        return pokemon;
     }
+
+    @GetMapping("/find/{pokemonName}")
+    public PokemonObject findPokemon(String Authorization, @PathVariable String pokemonName){
+        System.out.println("This is the pokmeon being passed in for search: " + pokemonName);
+        return pokemonService.findPokemon(pokemonName);
+    }
+
 }
