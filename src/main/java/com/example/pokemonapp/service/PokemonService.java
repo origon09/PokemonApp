@@ -1,5 +1,6 @@
 package com.example.pokemonapp.service;
 
+import com.example.pokemonapp.model.MoveObject;
 import com.example.pokemonapp.model.Pokemon;
 import com.example.pokemonapp.model.PokemonObject;
 import com.example.pokemonapp.repository.PokemonRepository;
@@ -25,6 +26,7 @@ public class PokemonService{
     private RestTemplate restTemplate;
     private final PokemonRepository pokemonRepository;
     private final String POKEMON_BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
+    private final String POKEMON_MOVE_URL = "https://pokeapi.co/api/v2/move/";
 
 
 
@@ -84,6 +86,27 @@ public class PokemonService{
                 HttpMethod.GET,
                 entity,
                 PokemonObject.class
+        );
+
+        PokemonObject jose = PokemonObject.builder().name("Jose").order(1).id(1).build();
+        System.out.println(jose);
+        return response.getBody();
+    }
+
+    public MoveObject movesPokemon(int pokemonName) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        String final_URL = UriComponentsBuilder.fromHttpUrl(POKEMON_MOVE_URL)
+                .path(String.valueOf(pokemonName))
+                .toUriString();
+
+        System.out.println(final_URL);
+        ResponseEntity<MoveObject> response = restTemplate.exchange(
+                final_URL,
+                HttpMethod.GET,
+                entity,
+                MoveObject.class
         );
 
         PokemonObject jose = PokemonObject.builder().name("Jose").order(1).id(1).build();

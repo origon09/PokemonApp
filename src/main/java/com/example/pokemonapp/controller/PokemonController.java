@@ -1,5 +1,6 @@
 package com.example.pokemonapp.controller;
 
+import com.example.pokemonapp.model.MoveObject;
 import com.example.pokemonapp.model.Pokemon;
 import com.example.pokemonapp.model.PokemonObject;
 import com.example.pokemonapp.service.PokemonService;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@CrossOrigin(origins = "http://localhost:8080/pokemon/pokedex")
 @RequestMapping("/pokemon")
 public class PokemonController {
 
@@ -51,6 +52,12 @@ public class PokemonController {
     public PokemonObject findPokemon(String Authorization, @PathVariable String pokemonName){
         System.out.println("This is the pokmeon being passed in for search: " + pokemonName);
         return pokemonService.findPokemon(pokemonName);
+    }
+
+    @GetMapping("/move/{pokemonName}")
+    public MoveObject movesPokemon(String Authorization, @PathVariable int pokemonName){
+        System.out.println("This is the pokmeon being passed in for search: " + pokemonName);
+        return pokemonService.movesPokemon(pokemonName);
     }
 
 }
